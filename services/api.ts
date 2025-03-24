@@ -9,6 +9,7 @@ export async function fetchProducts () {
     }
 }
 
+
 export async function fetchProductsById(id : string) {
     try {
 
