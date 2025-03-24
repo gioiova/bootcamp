@@ -8,5 +8,4 @@ export type Product = {
     rate: number;
     count: number;
   };
-  showDetailsLink?: boolean;
 };
