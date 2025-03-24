@@ -16,13 +16,9 @@ const ProductList = ({ products }: ProductListProps) => {
         return (
           <Product
             key={product.id}
-            id={product.id}
-            title={product.title}
-            price={product.price}
-            image={product.image}
-            rating={product.rating}
-            description={product.description.slice(0,100)}
-            showDetailsLink= {true}
+            product={product}
+            showDetailsLink ={true}
+           
           />
 
           

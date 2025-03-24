@@ -2,7 +2,17 @@ import Link from 'next/link';
 import Image from "next/image";
 import {Product as  ProductType } from '../types/ProductType';
 
-const Product = ({ id, title, price, image, rating,description,showDetailsLink }: ProductType) => {
+type ProductProps = {
+  product : ProductType;
+  maxDescriptionLength? : number;
+  showDetailsLink?: boolean;
+}
+
+const Product = ({ product,maxDescriptionLength = 100, showDetailsLink = true}: ProductProps) => {
+  const {id,title,price,image,description,rating} = product;
+  const truncatedDescription = description.slice(0, maxDescriptionLength) + 
+    (description.length > maxDescriptionLength? '...' : '');
+    
   return (
     <div className="border p-4 rounded-lg shadow-md">
       <div className="relative w-[200px] h-[200px] mx-auto mb-4">
@@ -18,7 +28,7 @@ const Product = ({ id, title, price, image, rating,description,showDetailsLink }
       <p className="text-sm text-gray-600 text-center">
         ⭐ {rating.rate} ({rating.count} reviews)
       </p>
-      <p>{description}</p>
+      <p>{truncatedDescription}</p>
       {showDetailsLink && 
       <Link 
         href={`/products/${id}`} 
