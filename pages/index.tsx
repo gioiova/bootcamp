@@ -1,9 +1,10 @@
 import { GetServerSideProps } from "next";
 import ProductList from "@/components/ProductList";
-import { Product } from "@/types/ProductType";
+import { Product as ProductType} from "@/types/ProductType";
+import { fetchProducts } from "@/services/api";
 
 type HomeProps = {
-  topRatedProducts: Product[];
+  topRatedProducts: ProductType[];
 };
 
 const Home = ({ topRatedProducts }: HomeProps) => {
@@ -16,13 +17,12 @@ const Home = ({ topRatedProducts }: HomeProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("https://fakestoreapi.com/products");
-  const products: Product[] = await res.json();
+  const products = await fetchProducts();
 
-  const topRatedProducts = products
-    .sort((a, b) => b.rating.rate - a.rating.rate) 
-    .slice(0, 5); //
+  const topRatedProducts = products.sort((a:any,b:any) => b.rating.rate - a.rating.rate).slice(0,5);
 
+
+  
   return {
     props: { topRatedProducts },
   };

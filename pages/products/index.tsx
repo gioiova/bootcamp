@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import ProductList from "@/components/ProductList";
 import { Product as ProductType } from "@/types/ProductType";
+import { fetchProducts } from "@/services/api";
 
 type ProductsPageProps = {
   products: ProductType[];
@@ -19,8 +20,7 @@ const ProductsPage = ({products}:ProductsPageProps) => {
 
 export const getServerSideProps:GetServerSideProps = async () => {
     
-    const res = await fetch("https://fakestoreapi.com/products");
-    const products:ProductType = await res.json();
+    const products = await fetchProducts();
 
     return{
         props:{products},
